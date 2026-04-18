@@ -3,9 +3,9 @@ import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
 import { Timeline } from "@/components/Timeline";
 import { ProductChapter } from "@/components/ProductChapter";
-import { SideProjects } from "@/components/SideProjects";
+import { Bots } from "@/components/Bots";
+import { AIWorkflow } from "@/components/AIWorkflow";
 import { Pipeline } from "@/components/Pipeline";
-import { Diagrams } from "@/components/Diagrams";
 import { StackStrip } from "@/components/StackStrip";
 import { StatsGrid } from "@/components/StatsGrid";
 import { WritingsList } from "@/components/WritingsList";
@@ -25,9 +25,9 @@ export default function Home() {
             <ProductChapter key={p.slug} project={p} />
           ))}
         </section>
-        <SideProjects />
+        <AIWorkflow />
+        <Bots />
         <Pipeline />
-        <Diagrams />
         <StackStrip />
         <StatsGrid />
         <WritingsList />
