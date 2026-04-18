@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 const researchPhases = [
   {
     title: "Feature context",
@@ -329,26 +327,6 @@ export function AIWorkflow() {
           </div>
         </div>
 
-        {/* Lifecycle diagram */}
-        <div className="pt-8 border-t border-black/10">
-          <p className="text-caption opacity-60 mb-4">
-            All three gates in one picture — research, UX audit, BFS check,
-            mockup, build, release.
-          </p>
-          <div
-            className="bg-white rounded-2xl p-4 inline-block"
-            style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.08)" }}
-          >
-            <Image
-              src="/diagrams/feature-lifecycle.png"
-              alt="Feature lifecycle diagram"
-              width={620}
-              height={960}
-              sizes="(max-width: 768px) 100vw, 620px"
-              className="w-full max-w-[620px] h-auto rounded-lg"
-            />
-          </div>
-        </div>
       </div>
     </section>
   );

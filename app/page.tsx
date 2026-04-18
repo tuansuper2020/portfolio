@@ -4,7 +4,9 @@ import { About } from "@/components/About";
 import { Timeline } from "@/components/Timeline";
 import { ProductChapter } from "@/components/ProductChapter";
 import { Bots } from "@/components/Bots";
+import { DevDashboard } from "@/components/DevDashboard";
 import { AIWorkflow } from "@/components/AIWorkflow";
+import { Skills } from "@/components/Skills";
 import { Pipeline } from "@/components/Pipeline";
 import { StackStrip } from "@/components/StackStrip";
 import { StatsGrid } from "@/components/StatsGrid";
@@ -26,7 +28,9 @@ export default function Home() {
           ))}
         </section>
         <AIWorkflow />
+        <Skills />
         <Bots />
+        <DevDashboard />
         <Pipeline />
         <StackStrip />
         <StatsGrid />
