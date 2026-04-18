@@ -1,26 +1,232 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-light: #f5f5f7;
+  --bg-dark: #000000;
+  --text-dark: #1d1d1f;
+  --text-light: #ffffff;
+  --accent: #0071e3;
+  --link-light: #0066cc;
+  --link-dark: #2997ff;
+  --surface-dark-1: #1d1d1f;
+  --surface-dark-2: #272729;
+  --card-shadow: 0 5px 30px rgba(0, 0, 0, 0.22);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg-light: var(--bg-light);
+  --color-bg-dark: var(--bg-dark);
+  --color-text-dark: var(--text-dark);
+  --color-text-light: var(--text-light);
+  --color-accent: var(--accent);
+  --color-link-light: var(--link-light);
+  --color-link-dark: var(--link-dark);
+  --color-surface-dark-1: var(--surface-dark-1);
+  --color-surface-dark-2: var(--surface-dark-2);
+  --font-display: var(--font-sf), "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body: var(--font-sf), "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html, body {
+  background: var(--bg-light);
+  color: var(--text-dark);
+  font-family: var(--font-body, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.display-hero {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.07;
+  letter-spacing: -0.02em;
+}
+
+.display-section {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+.display-tile {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 400;
+  line-height: 1.14;
+  letter-spacing: 0.012em;
+}
+
+.text-subheading {
+  font-family: var(--font-display);
+  font-size: 1.31rem;
+  font-weight: 400;
+  line-height: 1.19;
+  letter-spacing: 0.011em;
+}
+
+.text-body-apple {
+  font-family: var(--font-body);
+  font-size: 1.06rem;
+  font-weight: 400;
+  line-height: 1.47;
+  letter-spacing: -0.022em;
+}
+
+.text-caption {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 400;
+  line-height: 1.29;
+  letter-spacing: -0.016em;
+}
+
+.pill {
+  border-radius: 980px;
+  padding: 0.55rem 1.25rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.pill-filled {
+  background: var(--accent);
+  color: var(--text-light);
+  border: 1px solid var(--accent);
+}
+
+.pill-filled:hover {
+  background: #0077ed;
+}
+
+.pill-outline-light {
+  background: transparent;
+  color: var(--link-light);
+  border: 1px solid var(--link-light);
+}
+
+.pill-outline-light:hover {
+  background: var(--link-light);
+  color: var(--text-light);
+}
+
+.pill-outline-dark {
+  background: transparent;
+  color: var(--link-dark);
+  border: 1px solid var(--link-dark);
+}
+
+.pill-outline-dark:hover {
+  background: var(--link-dark);
+  color: var(--text-light);
+}
+
+.nav-glass {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+.card-lift {
+  box-shadow: var(--card-shadow);
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.arrow-chev::after {
+  content: " ›";
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+a:hover .arrow-chev::after,
+.arrow-chev:hover::after {
+  transform: translateX(2px);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--text-light);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.prose-article {
+  color: var(--text-dark);
+}
+
+.prose-article > * + * {
+  margin-top: 1.4rem;
+}
+
+.prose-article h2 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin-top: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose-article h3 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose-article p {
+  font-size: 1.06rem;
+  line-height: 1.6;
+  letter-spacing: -0.015em;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.prose-article ol,
+.prose-article ul {
+  padding-left: 1.4rem;
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.prose-article ol {
+  list-style: decimal;
+}
+
+.prose-article ul {
+  list-style: disc;
+}
+
+.prose-article li {
+  font-size: 1.06rem;
+  line-height: 1.6;
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.015em;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.prose-article strong {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.prose-article em {
+  font-style: italic;
+}
+
+.prose-article code {
+  background: rgba(0, 0, 0, 0.06);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  font-size: 0.92em;
 }
