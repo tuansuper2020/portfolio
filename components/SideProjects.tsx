@@ -4,6 +4,7 @@ const projects = [
   {
     name: "Victor",
     subtitle: "The CS bot that speaks to merchants.",
+    diagram: "/diagrams/architecture.png",
     body: (
       <>
         Victor is a Crisp live-chat bot I built for AOV.ai support. It listens
@@ -78,6 +79,18 @@ export function SideProjects() {
               <div className="relative">
                 <h3 className="display-tile mb-1">{p.name}</h3>
                 <p className="text-subheading opacity-70 mb-6">{p.subtitle}</p>
+                {p.diagram && (
+                  <div className="mb-6 bg-[#fafafa] rounded-xl overflow-hidden border border-black/5">
+                    <Image
+                      src={p.diagram}
+                      alt={`${p.name} architecture diagram`}
+                      width={1200}
+                      height={650}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="w-full h-auto"
+                    />
+                  </div>
+                )}
                 <p className="text-body-apple opacity-80 mb-6">{p.body}</p>
                 <ul className="space-y-2 mb-6">
                   {p.highlights.map((h, i) => (

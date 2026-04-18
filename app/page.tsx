@@ -5,6 +5,7 @@ import { Timeline } from "@/components/Timeline";
 import { ProductChapter } from "@/components/ProductChapter";
 import { SideProjects } from "@/components/SideProjects";
 import { Pipeline } from "@/components/Pipeline";
+import { Diagrams } from "@/components/Diagrams";
 import { StackStrip } from "@/components/StackStrip";
 import { StatsGrid } from "@/components/StatsGrid";
 import { WritingsList } from "@/components/WritingsList";
@@ -26,6 +27,7 @@ export default function Home() {
         </section>
         <SideProjects />
         <Pipeline />
+        <Diagrams />
         <StackStrip />
         <StatsGrid />
         <WritingsList />
