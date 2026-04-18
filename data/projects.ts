@@ -23,23 +23,35 @@ export const projects: Project[] = [
     summary:
       "A Shopify app that shows AI-driven upsell offers on the post-purchase, thank-you, and order status pages. Zero risk to checkout conversion, measurable lift to AOV. Climbed to the #2 Post Purchase Upsell app on the Shopify App Store in Q1 2026.",
     metrics: [
-      { label: "Orders generated", value: "3,416", context: "January 2026" },
-      { label: "Revenue generated", value: "$60.65k", context: "January 2026" },
       {
-        label: "Cross-app install rate",
-        value: "50.6%",
-        context: "February 2026 — from Boost Sales & AOV Bundle",
+        label: "Active merchant installs",
+        value: "3,853",
+        context: "Live on Shopify as of 2026-04-18",
       },
       {
-        label: "Trial → Paid conversion",
-        value: "70.4%",
-        context: "March 2026",
+        label: "Merchants on paid plans",
+        value: "962",
+        context: "25% of active installs · April 2026",
       },
-      { label: "Charge revenue MoM", value: "+24.7%", context: "Feb → Mar 2026" },
       {
-        label: "App Store rank",
-        value: "#2",
-        context: "Shopify Post Purchase Upsell, March 2026",
+        label: "Orders generated (Mar 2026)",
+        value: "1,588",
+        context: "Upsell orders tracked in Firestore",
+      },
+      {
+        label: "Upsell revenue (Apr MTD)",
+        value: "$53.7k",
+        context: "942 upsell orders · avg $57 each · through Apr 18",
+      },
+      {
+        label: "Trial → Paid",
+        value: "65.1%",
+        context: "March 2026 · from 241 trial starters",
+      },
+      {
+        label: "All-time platform revenue",
+        value: "$20.3k",
+        context: "1,169 charges across 238 paying shops since Aug 2025",
       },
     ],
     contributions: [

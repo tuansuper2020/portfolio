@@ -3,6 +3,8 @@ import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
 import { Timeline } from "@/components/Timeline";
 import { ProductChapter } from "@/components/ProductChapter";
+import { MockupGallery } from "@/components/MockupGallery";
+import { Pipeline } from "@/components/Pipeline";
 import { StatsGrid } from "@/components/StatsGrid";
 import { WritingsList } from "@/components/WritingsList";
 import { Contact, Footer } from "@/components/Contact";
@@ -21,6 +23,8 @@ export default function Home() {
             <ProductChapter key={p.slug} project={p} />
           ))}
         </section>
+        <MockupGallery />
+        <Pipeline />
         <StatsGrid />
         <WritingsList />
         <Contact />
