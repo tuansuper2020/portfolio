@@ -60,8 +60,55 @@ const psychologyLenses = [
   { law: "Miller's Law", cue: "Chunk information in sets of seven or fewer." },
   { law: "Progressive Disclosure", cue: "Advanced features live behind a click, not in the main view." },
   { law: "Default Effect", cue: "The default value matches the majority use case." },
+  { law: "Paradox of Choice", cue: "Too many options without guidance — add presets or recommendations." },
   { law: "Fogg's Model", cue: "Every CTA needs Motivation + Ability + a clear Prompt." },
-  { law: "Peak–End Rule", cue: "Success moments get their peak — a toast, a confetti, a visible before/after." },
+  { law: "Endowed Progress", cue: "Give setup a head start — auto-complete step 1 where possible." },
+  { law: "Zeigarnik Effect", cue: "Incomplete tasks stay visible with progress indicators." },
+  { law: "Feedback Loops", cue: "Toggle → instant preview update. Save → toast. Always acknowledge." },
+  { law: "Peak–End Rule", cue: "Success moments get their peak — a toast, confetti, a visible before/after." },
+];
+
+const bfsCategories = [
+  {
+    title: "Navigation & Structure",
+    cues: "s-app-nav for primary nav (never a custom sidebar); breadcrumbs on sub-pages; s-page for titles.",
+  },
+  {
+    title: "Forms & Data Entry",
+    cues: "Contextual Save Bar on every unsaved-changes form; inline validation on blur; errors under the field, not just a toast; confirmation modal for destructive actions.",
+  },
+  {
+    title: "Modals & Overlays",
+    cues: "s-modal with heading attribute; close via X, Escape, and backdrop; never a modal for a settings page.",
+  },
+  {
+    title: "Colors & Visual",
+    cues: "Semantic only — red means error, not a countdown or highlight. Polaris color tokens, never hard-coded values. WCAG AA contrast.",
+  },
+  {
+    title: "Premium & Pricing",
+    cues: "Premium features disabled and labeled with their tier; Shopify Plus features hidden from non-Plus stores; pricing page honest and scannable.",
+  },
+  {
+    title: "Promotions & Cross-sell",
+    cues: "Cross-app banners are dismissible and stay dismissed. No pressure tactics — no fake urgency, no shame copy. No unverifiable claims.",
+  },
+  {
+    title: "Loading & Feedback",
+    cues: "Skeleton screens, not blank pages. Toasts for save/delete. Optimistic UI where it fits.",
+  },
+  {
+    title: "Live Preview & Customization",
+    cues: "Visual customization shows a live preview. Editor and preview visible at once on desktop.",
+  },
+  {
+    title: "Accessibility",
+    cues: "44×44 touch targets, keyboard navigation, focus management inside modals.",
+  },
+  {
+    title: "Content & Copy",
+    cues: "No typos in headings, nav, or CTAs. Consistent terminology. Tab interactions modify content below the tabs — never above.",
+  },
 ];
 
 export function AIWorkflow() {
@@ -77,8 +124,8 @@ export function AIWorkflow() {
         <p className="text-body-apple opacity-75 max-w-2xl mb-20">
           Sixty-four PRDs in a quarter isn&apos;t a human pace. What made it
           possible was splitting the job cleanly: agents read, gather, and
-          propose; I decide, cut, and sign. Here&apos;s the two parts of that
-          split.
+          propose; I decide, cut, and sign. Here are the three gates every
+          feature walks through before it ships.
         </p>
 
         {/* PRD Research */}
@@ -160,10 +207,10 @@ export function AIWorkflow() {
         </div>
 
         {/* UX Audit */}
-        <div>
+        <div className="mb-24">
           <div className="flex items-baseline gap-4 mb-6">
             <span className="text-caption font-mono text-[#0066cc]">02</span>
-            <h3 className="display-tile">UX audit before the mockups ship</h3>
+            <h3 className="display-tile">UX audit — does it feel right?</h3>
           </div>
           <p className="text-body-apple opacity-80 max-w-3xl mb-10">
             Every feature goes through a five-criteria scorecard and a UX
@@ -211,23 +258,95 @@ export function AIWorkflow() {
             </div>
           </div>
 
-          <div className="mt-10">
-            <div
-              className="bg-white rounded-2xl p-4 inline-block"
-              style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.08)" }}
-            >
-              <Image
-                src="/diagrams/feature-lifecycle.png"
-                alt="Feature lifecycle diagram — where UX audit sits"
-                width={620}
-                height={960}
-                sizes="(max-width: 768px) 100vw, 620px"
-                className="w-full max-w-[620px] h-auto rounded-lg"
-              />
-            </div>
-            <p className="text-caption opacity-60 mt-3">
-              Feature lifecycle — research, audit, mockup, build, release.
+        </div>
+
+        {/* BFS check */}
+        <div className="mb-24">
+          <div className="flex items-baseline gap-4 mb-6">
+            <span className="text-caption font-mono text-[#0066cc]">03</span>
+            <h3 className="display-tile">BFS check — does Shopify approve?</h3>
+          </div>
+          <p className="text-body-apple opacity-80 max-w-3xl mb-10">
+            Built for Shopify is the App Store&apos;s compliance badge —
+            shops trust it, and apps without it get buried. Every PRD and
+            every mockup goes through a separate{" "}
+            <code className="bg-black/5 px-1.5 rounded text-[0.9em]">bfs-check</code>{" "}
+            skill before leaving my desk. The skill reads a set of BFS rules
+            loaded as context, then scores the feature across ten categories
+            and returns <strong>PASS · CONDITIONAL · FAIL</strong> with an
+            action list.
+          </p>
+
+          <div className="grid sm:grid-cols-2 gap-4 mb-10">
+            {bfsCategories.map((c, i) => (
+              <div
+                key={c.title}
+                className="bg-white rounded-2xl p-6"
+                style={{ boxShadow: "0 6px 24px rgba(0,0,0,0.05)" }}
+              >
+                <div className="flex items-baseline gap-3 mb-2">
+                  <span className="text-caption font-mono text-[#0071e3]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h4 className="text-body-apple font-semibold">{c.title}</h4>
+                </div>
+                <p className="text-caption opacity-75 leading-relaxed">
+                  {c.cues}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div
+            className="bg-white rounded-2xl p-6 border-l-4 border-[#0071e3]"
+            style={{ boxShadow: "0 6px 24px rgba(0,0,0,0.05)" }}
+          >
+            <p className="text-caption text-[#0066cc] uppercase tracking-[0.15em] mb-3">
+              AOV.ai-specific warnings
             </p>
+            <ul className="text-body-apple opacity-80 space-y-2">
+              <li className="pl-5 relative before:content-['›'] before:absolute before:left-0 before:text-[#0071e3]">
+                Campaign and rule setup forms <strong>must</strong> use the
+                Contextual Save Bar.
+              </li>
+              <li className="pl-5 relative before:content-['›'] before:absolute before:left-0 before:text-[#0071e3]">
+                Red is reserved for errors. Countdown timers and
+                &ldquo;Popular&rdquo; highlights painted red = instant BFS
+                violation.
+              </li>
+              <li className="pl-5 relative before:content-['›'] before:absolute before:left-0 before:text-[#0071e3]">
+                Cross-app banners promoting other AOV apps must be
+                dismissible and stay dismissed.
+              </li>
+              <li className="pl-5 relative before:content-['›'] before:absolute before:left-0 before:text-[#0071e3]">
+                Extension status must come from{" "}
+                <code className="bg-black/5 px-1 rounded text-[0.85em]">
+                  app.extensions()
+                </code>
+                , not from a stored flag that can drift.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Lifecycle diagram */}
+        <div className="pt-8 border-t border-black/10">
+          <p className="text-caption opacity-60 mb-4">
+            All three gates in one picture — research, UX audit, BFS check,
+            mockup, build, release.
+          </p>
+          <div
+            className="bg-white rounded-2xl p-4 inline-block"
+            style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.08)" }}
+          >
+            <Image
+              src="/diagrams/feature-lifecycle.png"
+              alt="Feature lifecycle diagram"
+              width={620}
+              height={960}
+              sizes="(max-width: 768px) 100vw, 620px"
+              className="w-full max-w-[620px] h-auto rounded-lg"
+            />
           </div>
         </div>
       </div>
