@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { experience } from "@/data/experience";
 
 export function Timeline() {
@@ -29,8 +30,23 @@ export function Timeline() {
                   </span>
                 )}
               </div>
-              <h3 className="display-tile mb-1">{job.role}</h3>
-              <p className="text-body-apple text-white/60 mb-4">{job.company}</p>
+              <div className="flex items-center gap-3 mb-4">
+                {job.logo && (
+                  <span className="w-10 h-10 rounded-xl bg-white flex items-center justify-center overflow-hidden ring-1 ring-white/10">
+                    <Image
+                      src={job.logo}
+                      alt={`${job.company} logo`}
+                      width={36}
+                      height={36}
+                      className="object-contain"
+                    />
+                  </span>
+                )}
+                <div>
+                  <h3 className="display-tile leading-none">{job.role}</h3>
+                  <p className="text-caption text-white/60 mt-1">{job.company}</p>
+                </div>
+              </div>
               <ul className="space-y-2">
                 {job.highlights.map((h, i) => (
                   <li

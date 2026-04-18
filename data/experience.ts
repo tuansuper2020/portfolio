@@ -5,6 +5,7 @@ export type Experience = {
   role: string;
   highlights: string[];
   current?: boolean;
+  logo?: string;
 };
 
 export const experience: Experience[] = [
@@ -13,6 +14,7 @@ export const experience: Experience[] = [
     end: "Present",
     company: "Avada Group",
     role: "Product Owner",
+    logo: "/logos/companies/avada.png",
     current: true,
     highlights: [
       "Own roadmap for AOV.ai Post Purchase Upsell and AOV Checkout Upsell — two Shopify apps for merchant AOV growth.",
@@ -25,6 +27,7 @@ export const experience: Experience[] = [
     end: "06/2025",
     company: "Viettel Digital",
     role: "Product Owner",
+    logo: "/logos/companies/viettel.png",
     highlights: [
       "Launched Game Hub on Viettel Money — 230,000 organic users in 3 months.",
       "Wrote PRDs for payment, reward, and mission systems; prioritized backlog and ran daily standups.",
@@ -36,6 +39,7 @@ export const experience: Experience[] = [
     end: "09/2024",
     company: "BSS Group — SBC Division",
     role: "Business Analyst, Product Owner",
+    logo: "/logos/companies/bsscommerce.png",
     highlights: [
       "Led BSS B2B Portal (B2B order management app on Shopify) from requirements through QA handoff.",
       "Ran the Built for Shopify (BFS) badge project end-to-end.",
@@ -47,6 +51,7 @@ export const experience: Experience[] = [
     end: "12/2022",
     company: "Pinetree Securities JSC",
     role: "Platform Strategic Intern",
+    logo: "/logos/companies/pinetree.png",
     highlights: [
       "Designed prototype features for the Pine X app in Figma.",
       "Researched the financial platform landscape and wrote meeting summaries for senior management.",
