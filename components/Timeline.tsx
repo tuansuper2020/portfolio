@@ -1,16 +1,18 @@
 import Image from "next/image";
-import { experience } from "@/data/experience";
+import type { Locale } from "@/lib/i18n";
+import { dict } from "@/lib/dict";
+import { getExperience } from "@/data/experience";
 
-export function Timeline() {
+export function Timeline({ lang }: { lang: Locale }) {
+  const t = dict[lang].timeline;
+  const experience = getExperience(lang);
   return (
     <section className="bg-black text-white py-24 md:py-32">
       <div className="max-w-[980px] mx-auto px-6">
         <p className="text-caption uppercase tracking-[0.2em] text-[#2997ff] mb-4">
-          Journey
+          {t.kicker}
         </p>
-        <h2 className="display-section mb-16 max-w-2xl">
-          Four years, four teams — each one a little bigger.
-        </h2>
+        <h2 className="display-section mb-16 max-w-2xl">{t.heading}</h2>
 
         <ol className="relative border-l border-white/15 pl-8 space-y-12">
           {experience.map((job) => (
@@ -26,7 +28,7 @@ export function Timeline() {
                 </span>
                 {job.current && (
                   <span className="text-caption text-[#2997ff] uppercase tracking-[0.15em]">
-                    Now
+                    {t.now}
                   </span>
                 )}
               </div>

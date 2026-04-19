@@ -1,7 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Locale } from "@/lib/i18n";
+import { dict } from "@/lib/dict";
 
-export function Hero() {
+export function Hero({ lang }: { lang: Locale }) {
+  const t = dict[lang].hero;
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-black text-white overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-black via-[#0b0b0f] to-black" />
@@ -20,26 +23,25 @@ export function Hero() {
         </div>
 
         <p className="text-caption uppercase tracking-[0.2em] text-[#2997ff] mb-4">
-          Product Owner · Avada Group
+          {t.kicker}
         </p>
 
         <h1 className="display-hero text-white max-w-3xl">
-          Vũ Mạnh Tuấn.
+          {t.title}
           <br />
-          Shipping Shopify apps that grow merchant AOV.
+          {t.subtitle}
         </h1>
 
         <p className="text-subheading text-white/70 mt-6 max-w-xl">
-          I build post-purchase and checkout upsell products for Shopify
-          merchants — currently ranked #2 on the App Store.
+          {t.description}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 mt-10">
-          <Link href="#work" className="pill pill-filled">
-            View work
+          <Link href={`/${lang}#work`} className="pill pill-filled">
+            {t.ctaWork}
           </Link>
-          <Link href="#contact" className="pill pill-outline-dark">
-            Get in touch
+          <Link href={`/${lang}#contact`} className="pill pill-outline-dark">
+            {t.ctaContact}
           </Link>
         </div>
       </div>

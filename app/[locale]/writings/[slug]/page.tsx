@@ -1,21 +1,26 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { articles } from "@/data/writings-content";
+import { getArticles, articleSlugs } from "@/data/writings-content";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Contact";
+import { isLocale, locales } from "@/lib/i18n";
+import { dict } from "@/lib/dict";
 
 export function generateStaticParams() {
-  return Object.keys(articles).map((slug) => ({ slug }));
+  return locales.flatMap((locale) =>
+    articleSlugs.map((slug) => ({ locale, slug })),
+  );
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const article = articles[slug];
+  const { locale, slug } = await params;
+  if (!isLocale(locale)) return {};
+  const article = getArticles(locale)[slug];
   if (!article) return {};
   return {
     title: `${article.title} — Vũ Mạnh Tuấn`,
@@ -26,22 +31,24 @@ export async function generateMetadata({
 export default async function WritingPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
-  const article = articles[slug];
+  const { locale, slug } = await params;
+  if (!isLocale(locale)) notFound();
+  const article = getArticles(locale)[slug];
   if (!article) notFound();
+  const t = dict[locale].writings;
 
   return (
     <>
-      <Navigation />
+      <Navigation lang={locale} />
       <main className="flex-1 bg-[#f5f5f7] text-[#1d1d1f] pt-24">
         <article className="max-w-[720px] mx-auto px-6 py-16 md:py-24">
           <Link
-            href="/#writings"
+            href={`/${locale}#writings`}
             className="text-caption text-[#0066cc] inline-block mb-10 hover:underline"
           >
-            ‹ Back to writings
+            {t.back}
           </Link>
 
           <header className="mb-12">
@@ -50,30 +57,22 @@ export default async function WritingPage({
               <span>·</span>
               <span>{article.readingTime}</span>
             </div>
-            <h1 className="display-section mb-4 leading-tight">
-              {article.title}
-            </h1>
+            <h1 className="display-section mb-4 leading-tight">{article.title}</h1>
             <p className="text-subheading opacity-70">{article.lede}</p>
           </header>
 
-          <div
-            className="prose-article text-body-apple"
-            style={{ lineHeight: 1.6 }}
-          >
+          <div className="prose-article text-body-apple" style={{ lineHeight: 1.6 }}>
             {article.body}
           </div>
 
           <div className="mt-16 pt-10 border-t border-black/10">
-            <Link
-              href="/#writings"
-              className="pill pill-outline-light"
-            >
-              More writings
+            <Link href={`/${locale}#writings`} className="pill pill-outline-light">
+              {t.more}
             </Link>
           </div>
         </article>
       </main>
-      <Footer />
+      <Footer lang={locale} />
     </>
   );
 }
