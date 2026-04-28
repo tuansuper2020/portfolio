@@ -412,9 +412,20 @@ html {
 }
 
 @keyframes pipeline-pulse {
-  0% { transform: scale(0.8); opacity: 0.8; }
-  70% { transform: scale(2.2); opacity: 0; }
-  100% { transform: scale(2.2); opacity: 0; }
+  0% { transform: translateX(-50%) scale(0.8); opacity: 0.8; }
+  70% { transform: translateX(-50%) scale(2.2); opacity: 0; }
+  100% { transform: translateX(-50%) scale(2.2); opacity: 0; }
+}
+
+.pipeline-glow {
+  animation: pipeline-glow-travel 7s ease-in-out infinite;
+}
+
+@keyframes pipeline-glow-travel {
+  0%   { top: 0%;   opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────

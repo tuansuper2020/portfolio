@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 /**
  * Counter — animates a number up to its target when scrolled into view.
@@ -17,25 +17,34 @@ export function Counter({
   className?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const [display, setDisplay] = useState(value);
-  const parsed = parseValue(value);
+  const startedRef = useRef(false);
+  const parsed = useMemo(() => parseValue(value), [value]);
+  const [display, setDisplay] = useState<string>(() =>
+    parsed ? format(0, parsed) : value,
+  );
 
   useEffect(() => {
-    if (!parsed) return;
+    if (!parsed) {
+      setDisplay(value);
+      return;
+    }
     const el = ref.current;
     if (!el) return;
-    let started = false;
+    if (typeof IntersectionObserver === "undefined") {
+      setDisplay(value);
+      return;
+    }
+
     const obs = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting && !started) {
-            started = true;
+          if (entry.isIntersecting && !startedRef.current) {
+            startedRef.current = true;
             const start = performance.now();
             const tick = (now: number) => {
               const t = Math.min(1, (now - start) / duration);
               const eased = 1 - Math.pow(1 - t, 3);
-              const cur = parsed.target * eased;
-              setDisplay(format(cur, parsed));
+              setDisplay(format(parsed.target * eased, parsed));
               if (t < 1) requestAnimationFrame(tick);
               else setDisplay(value);
             };
@@ -48,7 +57,9 @@ export function Counter({
     );
     obs.observe(el);
     return () => obs.disconnect();
-  }, [parsed, value, duration]);
+    // value/duration are the only real dependencies; parsed is derived from value
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value, duration]);
 
   return (
     <span ref={ref} className={className}>
@@ -63,38 +74,18 @@ type Parsed = {
   target: number;
   decimals: number;
   thousandSep: boolean;
-  multiplier: number;
 };
 
 function parseValue(v: string): Parsed | null {
-  // Match optional prefix (non-digit), the number, optional suffix
   const match = v.match(/^(\D*?)(-?\d{1,3}(?:[,.]\d{3})*(?:\.\d+)?|-?\d+(?:\.\d+)?)([a-zA-Z%+~]*)$/);
   if (!match) return null;
   const [, prefix, numStr, suffix] = match;
-  const thousandSep = /,/.test(numStr);
+  const thousandSep = /[,.]/.test(numStr) && /\d{3}([,.]\d{3})/.test(numStr);
   const cleaned = numStr.replace(/,/g, "");
   const num = parseFloat(cleaned);
   if (Number.isNaN(num)) return null;
-
-  // Detect k / M multiplier in suffix
-  let multiplier = 1;
-  let suffixOut = suffix;
-  if (/^k/i.test(suffix)) {
-    multiplier = 1; // keep "k" suffix; we animate the displayed number directly
-  } else if (/^M/.test(suffix)) {
-    multiplier = 1;
-  }
-
   const decimals = (cleaned.split(".")[1] || "").length;
-
-  return {
-    prefix,
-    suffix: suffixOut,
-    target: num,
-    decimals,
-    thousandSep,
-    multiplier,
-  };
+  return { prefix, suffix, target: num, decimals, thousandSep };
 }
 
 function format(n: number, p: Parsed): string {
