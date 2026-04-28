@@ -3,6 +3,8 @@ import type { Project } from "@/data/projects";
 import type { Locale } from "@/lib/i18n";
 import { dict } from "@/lib/dict";
 import { Reveal } from "./Reveal";
+import { Counter } from "./Counter";
+import { Tilt } from "./Tilt";
 
 export function ProductChapter({ project, lang }: { project: Project; lang: Locale }) {
   const t = dict[lang].work;
@@ -33,11 +35,15 @@ export function ProductChapter({ project, lang }: { project: Project; lang: Loca
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
           {project.metrics.map((m, i) => (
             <Reveal key={m.label} delay={i * 60}>
-              <div className="card card-glow p-6 h-full">
-                <div className="display-tile mb-2 text-gradient">{m.value}</div>
-                <div className="text-body-apple font-medium text-[var(--text)]">{m.label}</div>
-                {m.context && <p className="text-caption text-[var(--text-muted)] mt-2">{m.context}</p>}
-              </div>
+              <Tilt className="h-full">
+                <div className="card card-glow p-6 h-full">
+                  <div className="display-tile mb-2 text-gradient">
+                    <Counter value={m.value} />
+                  </div>
+                  <div className="text-body-apple font-medium text-[var(--text)]">{m.label}</div>
+                  {m.context && <p className="text-caption text-[var(--text-muted)] mt-2">{m.context}</p>}
+                </div>
+              </Tilt>
             </Reveal>
           ))}
         </div>

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { MouseSpotlight } from "@/components/MouseSpotlight";
+import { ScrollProgress } from "@/components/ScrollProgress";
 
 const inter = Inter({
   subsets: ["latin", "vietnamese"],
@@ -36,7 +38,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${mono.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col relative">
+        <div className="aurora" aria-hidden />
+        <ScrollProgress />
+        <MouseSpotlight />
+        <div className="relative z-[2] flex flex-col min-h-full">{children}</div>
+      </body>
     </html>
   );
 }
