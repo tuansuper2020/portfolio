@@ -42,32 +42,37 @@ export default async function WritingPage({
   return (
     <>
       <Navigation lang={locale} />
-      <main className="flex-1 bg-[#f5f5f7] text-[#1d1d1f] pt-24">
+      <main className="flex-1 pt-24 relative">
+        <div className="absolute inset-0 -z-10 pointer-events-none">
+          <div className="orb orb-indigo orb-anim-2" style={{ width: 360, height: 360, top: "5%", left: "10%", opacity: 0.18 }} />
+        </div>
         <article className="max-w-[720px] mx-auto px-6 py-16 md:py-24">
           <Link
             href={`/${locale}#writings`}
-            className="text-caption text-[#0066cc] inline-block mb-10 hover:underline"
+            className="text-caption text-[var(--teal-2)] inline-flex items-center gap-1 mb-10 hover:text-[var(--text)] transition-colors"
           >
             {t.back}
           </Link>
 
           <header className="mb-12">
-            <div className="flex items-baseline gap-4 mb-4 text-caption text-black/50 font-mono">
+            <div className="flex items-baseline gap-3 mb-5 text-mono text-[var(--text-muted)] text-xs">
               <span>{article.date}</span>
               <span>·</span>
               <span>{article.readingTime}</span>
             </div>
-            <h1 className="display-section mb-4 leading-tight">{article.title}</h1>
-            <p className="text-subheading opacity-70">{article.lede}</p>
+            <h1 className="display-section mb-5 leading-tight text-[var(--text)]">
+              {article.title}
+            </h1>
+            <p className="text-subheading text-[var(--text-soft)]">{article.lede}</p>
           </header>
 
-          <div className="prose-article text-body-apple" style={{ lineHeight: 1.6 }}>
-            {article.body}
-          </div>
+          <hr className="divider-grad mb-12" />
 
-          <div className="mt-16 pt-10 border-t border-black/10">
-            <Link href={`/${locale}#writings`} className="pill pill-outline-light">
-              {t.more}
+          <div className="prose-article">{article.body}</div>
+
+          <div className="mt-16 pt-10 border-t border-[var(--border)]">
+            <Link href={`/${locale}#writings`} className="btn btn-secondary">
+              {t.more} <span aria-hidden>→</span>
             </Link>
           </div>
         </article>

@@ -13,34 +13,41 @@ export function Navigation({ lang }: { lang: Locale }) {
   const other: Locale = lang === "en" ? "vi" : "en";
 
   return (
-    <nav className="nav-glass fixed top-0 left-0 right-0 z-50 h-12 flex items-center justify-center">
-      <div className="flex items-center gap-6 text-white text-xs">
-        <Link href={`/${lang}`} className="font-medium tracking-tight">
-          VMT
+    <nav className="nav-glass fixed top-0 left-0 right-0 z-50 h-14 flex items-center">
+      <div className="max-w-[1200px] w-full mx-auto px-6 flex items-center justify-between">
+        <Link href={`/${lang}`} className="flex items-center gap-2 group">
+          <span className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#5a67d8] via-[#16a394] to-[#ff6bb6] flex items-center justify-center text-[11px] font-bold text-white tracking-tight">
+            V
+          </span>
+          <span className="text-sm font-semibold tracking-tight">
+            Vũ Mạnh Tuấn
+          </span>
         </Link>
-        <ul className="flex items-center gap-5">
+
+        <ul className="hidden md:flex items-center gap-1 text-[13px]">
           {items.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}
-                className="opacity-80 hover:opacity-100 transition-opacity"
+                className="px-3 py-2 rounded-lg text-[var(--text-soft)] hover:text-[var(--text)] hover:bg-white/5 transition-colors"
               >
                 {item.label}
               </Link>
             </li>
           ))}
         </ul>
-        <div className="flex items-center gap-1 ml-2 text-[10px] tracking-wide">
+
+        <div className="flex items-center gap-1 text-[11px] tracking-wide font-medium">
           <Link
             href={`/${lang}`}
             aria-current="page"
-            className="px-2 py-0.5 rounded-full bg-white/15 text-white"
+            className="px-2.5 py-1 rounded-md bg-white/10 text-[var(--text)]"
           >
             {dict[lang].langSwitch[lang].toUpperCase()}
           </Link>
           <Link
             href={`/${other}`}
-            className="px-2 py-0.5 rounded-full text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+            className="px-2.5 py-1 rounded-md text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-white/5 transition-colors"
           >
             {dict[lang].langSwitch[other].toUpperCase()}
           </Link>

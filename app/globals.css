@@ -1,173 +1,395 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────────────────────
+   Prisma-inspired design tokens
+   ───────────────────────────────────────────────────────────────────────── */
 :root {
-  --bg-light: #f5f5f7;
-  --bg-dark: #000000;
-  --text-dark: #1d1d1f;
-  --text-light: #ffffff;
-  --accent: #0071e3;
-  --link-light: #0066cc;
-  --link-dark: #2997ff;
-  --surface-dark-1: #1d1d1f;
-  --surface-dark-2: #272729;
-  --card-shadow: 0 5px 30px rgba(0, 0, 0, 0.22);
+  /* Surfaces */
+  --bg: #0c0a14;
+  --bg-soft: #13111c;
+  --surface-1: #181624;
+  --surface-2: #221f31;
+  --surface-3: #2d2942;
+
+  /* Text */
+  --text: #f1eefe;
+  --text-soft: #b1abc9;
+  --text-muted: #6e6985;
+
+  /* Brand */
+  --teal: #16a394;
+  --teal-2: #4cd0bc;
+  --indigo: #5a67d8;
+  --indigo-2: #7c8aff;
+  --pink: #ff6bb6;
+  --violet: #a880ff;
+  --amber: #ffb169;
+
+  /* Effects */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --grad: linear-gradient(135deg, #5a67d8 0%, #16a394 50%, #ff6bb6 100%);
+  --grad-soft: linear-gradient(135deg, rgba(90, 103, 216, 0.15), rgba(22, 163, 148, 0.15), rgba(255, 107, 182, 0.15));
+  --grad-line: linear-gradient(90deg, transparent, var(--text-muted), transparent);
+
+  /* Light section variants */
+  --bg-light: #faf9fb;
+  --surface-light: #ffffff;
+  --text-light: #0c0a14;
+  --text-light-soft: #4a4560;
+  --border-light: rgba(12, 10, 20, 0.08);
 }
 
 @theme inline {
-  --color-bg-light: var(--bg-light);
-  --color-bg-dark: var(--bg-dark);
-  --color-text-dark: var(--text-dark);
-  --color-text-light: var(--text-light);
-  --color-accent: var(--accent);
-  --color-link-light: var(--link-light);
-  --color-link-dark: var(--link-dark);
-  --color-surface-dark-1: var(--surface-dark-1);
-  --color-surface-dark-2: var(--surface-dark-2);
-  --font-display: var(--font-sf), "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-body: var(--font-sf), "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --color-bg: var(--bg);
+  --color-bg-soft: var(--bg-soft);
+  --color-surface-1: var(--surface-1);
+  --color-text: var(--text);
+  --color-text-soft: var(--text-soft);
+  --color-text-muted: var(--text-muted);
+  --color-teal: var(--teal);
+  --color-indigo: var(--indigo);
+  --color-pink: var(--pink);
+  --color-border: var(--border);
+
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, "JetBrains Mono", "Fira Code", monospace;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 html, body {
-  background: var(--bg-light);
-  color: var(--text-dark);
-  font-family: var(--font-body, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.display-hero {
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, 6vw, 3.5rem);
-  font-weight: 600;
-  line-height: 1.07;
-  letter-spacing: -0.02em;
-}
-
-.display-section {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4.5vw, 2.5rem);
-  font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: -0.015em;
-}
-
-.display-tile {
-  font-family: var(--font-display);
-  font-size: 1.75rem;
-  font-weight: 400;
-  line-height: 1.14;
-  letter-spacing: 0.012em;
-}
-
-.text-subheading {
-  font-family: var(--font-display);
-  font-size: 1.31rem;
-  font-weight: 400;
-  line-height: 1.19;
-  letter-spacing: 0.011em;
-}
-
-.text-body-apple {
-  font-family: var(--font-body);
-  font-size: 1.06rem;
-  font-weight: 400;
-  line-height: 1.47;
-  letter-spacing: -0.022em;
-}
-
-.text-caption {
-  font-family: var(--font-body);
-  font-size: 0.88rem;
-  font-weight: 400;
-  line-height: 1.29;
-  letter-spacing: -0.016em;
-}
-
-.pill {
-  border-radius: 980px;
-  padding: 0.55rem 1.25rem;
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.pill-filled {
-  background: var(--accent);
-  color: var(--text-light);
-  border: 1px solid var(--accent);
-}
-
-.pill-filled:hover {
-  background: #0077ed;
-}
-
-.pill-outline-light {
-  background: transparent;
-  color: var(--link-light);
-  border: 1px solid var(--link-light);
-}
-
-.pill-outline-light:hover {
-  background: var(--link-light);
-  color: var(--text-light);
-}
-
-.pill-outline-dark {
-  background: transparent;
-  color: var(--link-dark);
-  border: 1px solid var(--link-dark);
-}
-
-.pill-outline-dark:hover {
-  background: var(--link-dark);
-  color: var(--text-light);
-}
-
-.nav-glass {
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-}
-
-.card-lift {
-  box-shadow: var(--card-shadow);
-  border-radius: 12px;
-  background: #ffffff;
-}
-
-.arrow-chev::after {
-  content: " ›";
-  display: inline-block;
-  transition: transform 0.2s ease;
-}
-
-a:hover .arrow-chev::after,
-.arrow-chev:hover::after {
-  transform: translateX(2px);
-}
-
-::selection {
-  background: var(--accent);
-  color: var(--text-light);
 }
 
 html {
   scroll-behavior: smooth;
 }
 
+::selection {
+  background: rgba(90, 103, 216, 0.4);
+  color: var(--text);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Typography
+   ───────────────────────────────────────────────────────────────────────── */
+.display-hero {
+  font-size: clamp(2.75rem, 7vw, 5rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+}
+
+.display-section {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.display-tile {
+  font-size: clamp(1.4rem, 2.4vw, 1.875rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.text-subheading {
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+.text-body-apple {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.005em;
+}
+
+.text-caption {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+.text-mono {
+  font-family: var(--font-mono);
+  font-feature-settings: normal;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Gradient text
+   ───────────────────────────────────────────────────────────────────────── */
+.text-gradient {
+  background: var(--grad);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gradient-shift 8s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Animated gradient orbs (Prisma-style hero glow)
+   ───────────────────────────────────────────────────────────────────────── */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.55;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.orb-indigo { background: radial-gradient(circle, var(--indigo) 0%, transparent 70%); }
+.orb-teal { background: radial-gradient(circle, var(--teal) 0%, transparent 70%); }
+.orb-pink { background: radial-gradient(circle, var(--pink) 0%, transparent 70%); }
+.orb-violet { background: radial-gradient(circle, var(--violet) 0%, transparent 70%); }
+
+@keyframes float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -30px) scale(1.1); }
+  66% { transform: translate(-30px, 40px) scale(0.95); }
+}
+
+@keyframes float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-50px, -40px) scale(1.15); }
+}
+
+@keyframes float-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, 30px) scale(0.9); }
+}
+
+.orb-anim-1 { animation: float-1 14s ease-in-out infinite; }
+.orb-anim-2 { animation: float-2 18s ease-in-out infinite; }
+.orb-anim-3 { animation: float-3 22s ease-in-out infinite; }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Buttons
+   ───────────────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.25rem;
+  font-size: 0.94rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.btn-primary:hover {
+  background: var(--text-soft);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(241, 238, 254, 0.25);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-gradient {
+  background: var(--grad);
+  background-size: 200% 200%;
+  color: white;
+  animation: gradient-shift 4s ease infinite;
+}
+
+.btn-gradient:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 32px rgba(90, 103, 216, 0.4);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Cards (Prisma-style with gradient border on hover)
+   ───────────────────────────────────────────────────────────────────────── */
+.card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+
+.card-glow {
+  position: relative;
+}
+
+.card-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--grad);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.card-glow:hover::before {
+  opacity: 1;
+}
+
+.card-light {
+  background: var(--surface-light);
+  border: 1px solid var(--border-light);
+  color: var(--text-light);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.card-light:hover {
+  border-color: rgba(12, 10, 20, 0.16);
+  box-shadow: 0 12px 36px rgba(12, 10, 20, 0.08);
+  transform: translateY(-2px);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Pills / chips
+   ───────────────────────────────────────────────────────────────────────── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.32rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  color: var(--text-soft);
+  letter-spacing: 0.01em;
+}
+
+.chip-dot::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 12px var(--teal);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Navigation
+   ───────────────────────────────────────────────────────────────────────── */
+.nav-glass {
+  background: rgba(12, 10, 20, 0.6);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Code block
+   ───────────────────────────────────────────────────────────────────────── */
+.code-mock {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  color: var(--text-soft);
+}
+
+.code-mock .prompt {
+  color: var(--teal);
+  margin-right: 0.5rem;
+}
+
+.code-mock .cmd {
+  color: var(--text);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Scroll-reveal animation (uses CSS scroll-driven where supported, falls back to in-view fade)
+   ───────────────────────────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Section dividers
+   ───────────────────────────────────────────────────────────────────────── */
+.divider-grad {
+  height: 1px;
+  background: var(--grad-line);
+  border: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Pipeline animation (dot pulse along vertical line)
+   ───────────────────────────────────────────────────────────────────────── */
 .pipeline-track {
   background: linear-gradient(
     to bottom,
-    rgba(41, 151, 255, 0) 0%,
-    rgba(41, 151, 255, 0.5) 30%,
-    rgba(41, 151, 255, 0.8) 60%,
-    rgba(41, 151, 255, 0) 100%
+    transparent 0%,
+    var(--indigo) 30%,
+    var(--teal) 60%,
+    transparent 100%
   );
   background-size: 100% 200%;
-  animation: pipeline-flow 4s linear infinite;
+  animation: pipeline-flow 5s linear infinite;
 }
 
 @keyframes pipeline-flow {
@@ -185,7 +407,7 @@ html {
 }
 
 .pipeline-pulse {
-  background: rgba(0, 113, 227, 0.5);
+  background: rgba(90, 103, 216, 0.5);
   animation: pipeline-pulse 2.4s ease-out infinite;
 }
 
@@ -195,26 +417,23 @@ html {
   100% { transform: scale(2.2); opacity: 0; }
 }
 
-.mockup-card {
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+/* ─────────────────────────────────────────────────────────────────────────────
+   Marquee (logo strip)
+   ───────────────────────────────────────────────────────────────────────── */
+.marquee-track {
+  animation: marquee 35s linear infinite;
 }
 
-.mockup-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
-.stat-count {
-  animation: stat-count-up 0.8s ease-out both;
-}
-
-@keyframes stat-count-up {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
+/* ─────────────────────────────────────────────────────────────────────────────
+   Article prose
+   ───────────────────────────────────────────────────────────────────────── */
 .prose-article {
-  color: var(--text-dark);
+  color: var(--text-soft);
 }
 
 .prose-article > * + * {
@@ -222,17 +441,17 @@ html {
 }
 
 .prose-article h2 {
-  font-family: var(--font-display);
+  color: var(--text);
   font-size: 1.6rem;
   font-weight: 600;
   line-height: 1.2;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
   margin-top: 3rem;
   margin-bottom: 0.5rem;
 }
 
 .prose-article h3 {
-  font-family: var(--font-display);
+  color: var(--text);
   font-size: 1.25rem;
   font-weight: 600;
   margin-top: 2rem;
@@ -241,9 +460,9 @@ html {
 
 .prose-article p {
   font-size: 1.06rem;
-  line-height: 1.6;
-  letter-spacing: -0.015em;
-  color: rgba(0, 0, 0, 0.85);
+  line-height: 1.7;
+  letter-spacing: -0.005em;
+  color: var(--text-soft);
 }
 
 .prose-article ol,
@@ -253,35 +472,40 @@ html {
   margin-bottom: 1.2rem;
 }
 
-.prose-article ol {
-  list-style: decimal;
-}
-
-.prose-article ul {
-  list-style: disc;
-}
+.prose-article ol { list-style: decimal; }
+.prose-article ul { list-style: disc; }
 
 .prose-article li {
   font-size: 1.06rem;
-  line-height: 1.6;
+  line-height: 1.7;
   margin-bottom: 0.6rem;
-  letter-spacing: -0.015em;
-  color: rgba(0, 0, 0, 0.85);
+  color: var(--text-soft);
 }
 
 .prose-article strong {
+  color: var(--text);
   font-weight: 600;
-  color: var(--text-dark);
 }
 
-.prose-article em {
-  font-style: italic;
-}
+.prose-article em { font-style: italic; color: var(--text); }
 
 .prose-article code {
-  background: rgba(0, 0, 0, 0.06);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
   padding: 0.1rem 0.4rem;
-  border-radius: 4px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  border-radius: 6px;
+  font-family: var(--font-mono);
   font-size: 0.92em;
+  color: var(--teal-2);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Util
+   ───────────────────────────────────────────────────────────────────────── */
+.bg-grid {
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 30%, transparent 80%);
 }
