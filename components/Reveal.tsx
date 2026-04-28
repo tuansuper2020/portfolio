@@ -1,16 +1,18 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode, type CSSProperties } from "react";
 
 export function Reveal({
   children,
   delay = 0,
   className = "",
+  style,
   as = "div",
 }: {
   children: ReactNode;
   delay?: number;
   className?: string;
+  style?: CSSProperties;
   as?: "div" | "section" | "li" | "article";
 }) {
   const ref = useRef<HTMLElement>(null);
@@ -40,7 +42,7 @@ export function Reveal({
   const Tag = as as keyof React.JSX.IntrinsicElements;
   return (
     // @ts-expect-error – HTMLElement ref typing
-    <Tag ref={ref} className={`reveal ${className}`}>
+    <Tag ref={ref} className={`reveal ${className}`} style={style}>
       {children}
     </Tag>
   );
